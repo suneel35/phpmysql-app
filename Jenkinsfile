@@ -1,5 +1,6 @@
 
-node  {
+node  
+{
 
     stage('SCM Checkout')
     {
