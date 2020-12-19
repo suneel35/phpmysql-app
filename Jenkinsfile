@@ -1,21 +1,30 @@
+
 node{
 
     stage('SCM Checkout')
     {
-        git credentialsId: '4cc785e9-441d-4818-a248-2bfb2148004d', url: 'https://github.com/VardhanNS/phpmysql-app.git'
+     git credentialsId: 'suneel@35C', url: 'https://github.com/suneel35/phpmysql-app.git'   
     }
     
     stage('Run Docker Compose File')
     {
-        sh 'docker-compose build'
-        sh 'docker-compose up -d'
+        sh 'sudo docker-compose build'
+        sh 'sudo docker-compose up -d'
     }
-    stage('PUSH image to Docker Hub')
+  stage('PUSH image to Docker Hub')
     {
-        withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DHPWD')]) 
-        {
-            sh "docker login -u vardhanns -p ${DHPWD}"
-        }
-        sh 'docker push vardhanns/phpmysql_app'
+   /* withCredentials([usernameColonPassword(credentialsId: 'DockerHUB', variable: 'DHPWD')]) 
+   {
+                   sh "docker login -u suneel35 -p ${DHPWD}"
+				   }
+				   sh 'docker push suneel35/phpmysql_app'
+				   */
+				   // docker.withRegistry('https://registry.hub.docker.com', 'DockerHUB' ) 
+				   {
+				   sh 'sudo docker login -u "suneel35" -p "suneel@35C" docker.io'
+				   //sh 'sudo docker push suneel35/mysql'
+				   //sh 'sudo docker push suneel35/job1_web1.0'
+             sh 'sudo docker push suneel35/job1_web2.0'
+            // sh 'docker push suneel35/mysql' 
+	}     
     }
-}
